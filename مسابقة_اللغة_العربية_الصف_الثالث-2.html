@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مسابقة اللغة العربية - الصف الثالث</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f7fb;margin:0;padding:20px;color:#222}
+.card{max-width:650px;margin:auto;background:white;border-radius:18px;padding:24px;box-shadow:0 4px 18px #0001}
+h1{text-align:center;color:#345}
+.q{font-size:22px;font-weight:bold;margin:22px 0 14px}
+button{display:block;width:100%;margin:10px 0;padding:14px;border:0;border-radius:12px;background:#e8eef8;font-size:18px;cursor:pointer}
+button:hover{background:#d9e4f5}
+#result{text-align:center;font-size:20px;font-weight:bold;margin-top:20px}
+.small{text-align:center;color:#666}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🌟 مسابقة اللغة العربية</h1>
+<p class="small">للصف الثالث</p>
+<div id="quiz"></div>
+<div id="result"></div>
+</div>
+<script>
+const questions=[
+["ما جمع كلمة «كتاب»؟",["كتب","كاتب","مكتبة"],0],
+["ما مفرد كلمة «طلاب»؟",["طالب","طلبة","مدرسة"],0],
+["اختر الفعل في الجملة: «ذهبَ خالدٌ إلى المدرسة.»",["خالد","ذهبَ","المدرسة"],1],
+["ما ضد كلمة «كبير»؟",["طويل","صغير","جميل"],1],
+["أي كلمة تحتوي على حرف الجر «في»؟",["في البيت","ذهبَ","كتاب"],0],
+["ما نوع كلمة «جميل» في جملة «بيتٌ جميلٌ»؟",["اسم","فعل","صفة"],2],
+["اختر الجملة الصحيحة:",["الولدُ يلعبُ.","الولدُ يلعبَ.","الولدُ لعبَة."],0],
+["ما جمع كلمة «قلم»؟",["أقلام","قلمان","قالم"],0],
+["أكمل: «الشمسُ ___ في الصباح.»",["تشرقُ","يكتبُ","نقرأُ"],0],
+["ما علامة الترقيم المناسبة في نهاية السؤال؟",[".","؟","!"],1]
+];
+let i=0,score=0;
+function show(){
+ const q=questions[i];
+ document.getElementById("quiz").innerHTML=`<div class="q">${i+1}. ${q[0]}</div>`+
+ q[1].map((a,j)=>`<button onclick="answer(${j})">${a}</button>`).join("");
+}
+function answer(j){
+ if(j===questions[i][2]) score++;
+ i++;
+ if(i<questions.length) show();
+ else {
+  document.getElementById("quiz").innerHTML="";
+  document.getElementById("result").innerHTML=`🎉 انتهت المسابقة!<br>نتيجتك: ${score} من ${questions.length}<br><br><button onclick="location.reload()">إعادة اللعبة</button>`;
+ }
+}
+show();
+</script>
+</body>
+</html>
